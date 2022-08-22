@@ -15,6 +15,10 @@ socket.on('update_turn',  function(msg) {
     }
     var turn_dice = document.getElementById("turn_dice");
     turn_dice.src = "static/images/dice" + msg.dice + ".png";
+    var p1Title = document.getElementById("p1_board_title");
+    p1Title.innerText = "Player 1: " + msg.p1sum;
+    var p1Title = document.getElementById("p2_board_title");
+    p1Title.innerText = "Player 2: " + msg.p2sum;
 })
 
 socket.on('winning_message',  function(msg) {

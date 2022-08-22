@@ -4,17 +4,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script src="{{url_for('static', filename='js/game.js')}}"></script>
-    <meta charset="UTF-8" http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
+    <meta charset="UTF-8"/>
     <title>Game</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <link rel="stylesheet" href="{{url_for('static', filename='css/game.css')}}">
 </head>
 <body>
 <div class="container has-text-centered">
             <!-- Content -->
             <div class="hero entire_board" style="background-color: #00BFFF;">
-                <h1 class="board_title">Player 1</h1>
+                <h1 id="p1_board_title" class="board_title">Player 1: 0</h1>
                 <br>
                 <!-- Player1 Board -->
                 <div class="container">
@@ -33,12 +32,12 @@
             </div>
             <br>
             <div>
-                <h1 class="turn_h" id="turn_h">Player 1's turn:</h1>
-                <img id="turn_dice" class="dice" src="static/images/dice1.png"/>
+                <h1 class="turn_h" id="turn_h"></h1>
+                <img id="turn_dice" class="dice"/>
             </div>
             <br>
             <div class="hero entire_board" style="background-color: #B22222;">
-                <h1 class="board_title">Player 2</h1>
+                <h1 id="p2_board_title" class="board_title">Player 2: 0</h1>
                 <br>
                 <!-- Player2 Board -->
                 <div class="container">

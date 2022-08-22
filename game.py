@@ -11,12 +11,14 @@ class Game:
     def __init__(self, p1_sid, p2_sid, socket):
         self.p1_board = Board()
         self.p2_board = Board()
-        self.curr_player = 1
+        self.curr_player = random.randint(1, 2)
         self.curr_dice = generate_dice()
         self.socket = socket
         self.p1_sid = p1_sid
         self.p2_sid = p2_sid
-        self.socket.emit('update_turn', {"player": self.curr_player, "dice": self.curr_dice}, namespace="/game")
+        self.socket.emit('update_turn', {"player": self.curr_player, "dice": self.curr_dice,
+                                         "p1sum": self.p1_board.get_sum(), "p2sum": self.p2_board.get_sum()},
+                         namespace="/game")
 
     def get_curr_player_sid(self):
         if self.curr_player == 1:
@@ -74,7 +76,8 @@ class Game:
         self.socket.emit('update_column', my_json, namespace="/game")
         # generate new dice
         self.curr_dice = generate_dice()
-        self.socket.emit('update_turn', {"player": self.curr_player, "dice": self.curr_dice}, namespace="/game")
+        self.socket.emit('update_turn', {"player": self.curr_player, "dice": self.curr_dice,
+                                         "p1sum": self.p1_board.get_sum(), "p2sum": self.p2_board.get_sum()}, namespace="/game")
         self.check_win()
 
 

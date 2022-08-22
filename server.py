@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 logging.getLogger('werkzeug').disabled = True  # disabling logs
-# app.logger.disabled = True
+app.logger.disabled = True
 socketio = SocketIO(app)
 my_game = None
 
