@@ -16,6 +16,7 @@ logging.getLogger('werkzeug').disabled = True  # disabling logs
 socketio = SocketIO(app)
 my_game = None
 
+
 def send_number(column, num):
     socketio.emit('new_command', {'column': column, 'number': num}, namespace='/game')
 

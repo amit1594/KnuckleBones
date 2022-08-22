@@ -9,7 +9,7 @@ socket.on('update_turn',  function(msg) {
     var turn_h = document.getElementById("turn_h");
     turn_h.innerText = "Player " + msg.player + "'s turn!";
     if (msg.player == 1) {
-        turn_h.style.color = "green";
+        turn_h.style.color = "blue";
     } else {
         turn_h.style.color = "red";
     }

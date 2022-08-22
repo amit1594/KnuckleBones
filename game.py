@@ -47,7 +47,7 @@ class Game:
             if p1_sum > p2_sum:
                 winning_text = f"Player 1 won with {p1_sum}:{p2_sum}"
             else:
-                winning_text = f"Player 1 won with {p2_sum}:{p1_sum}"
+                winning_text = f"Player 2 won with {p2_sum}:{p1_sum}"
             self.socket.emit('winning_message', {'text': winning_text}, namespace="/game")
 
     def add_dice(self, board_index, col, sid):

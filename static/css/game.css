@@ -5,7 +5,7 @@ body {
 }
 
 .board_column {
-    height: 270px;
+    height: 300px;
     width: 88px;
     border: 2px;
     border-style: solid;
@@ -14,12 +14,12 @@ body {
 }
 
 .board_columns_container {
-    height: 270px;
+    height: 300px;
     width: 264px;
 }
 
 .entire_board {
-    height: 320px;
+    height: 350px;
 }
 
 .dice {
@@ -33,9 +33,10 @@ body {
 
 .board_title {
      font-size: 20px;
+     color: white;
 }
 
 .column_score {
-    font-size: 15px;
+    font-size: 20px;
     color: white;
 }
