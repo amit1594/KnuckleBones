@@ -1,5 +1,4 @@
-var socket = io.connect('https://' + document.domain + ':' + location.port + "/game");
-
+var socket = io.connect('https://' + document.domain + ':' + location.port + "/game", {transports: ["polling"] });
 socket.on( 'connect', function() {
     console.log("connected");
     socket.emit('connect_to_game')
