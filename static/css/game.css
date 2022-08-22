@@ -1,0 +1,41 @@
+body {
+    background-color: #7FFFD4;
+    height: 100vh;
+    font-size: 20px;
+}
+
+.board_column {
+    height: 270px;
+    width: 88px;
+    border: 2px;
+    border-style: solid;
+    padding: 2px;
+    overflow: hidden;
+}
+
+.board_columns_container {
+    height: 270px;
+    width: 264px;
+}
+
+.entire_board {
+    height: 320px;
+}
+
+.dice {
+    width: 80px;
+    height: 80px;
+}
+
+.turn_h {
+     font-size: 20px;
+}
+
+.board_title {
+     font-size: 20px;
+}
+
+.column_score {
+    font-size: 15px;
+    color: white;
+}
