@@ -1,6 +1,6 @@
 // var url = 'http://' + document.domain + ':' + location.port + "/game";
 var url = window.location.protocol + '//' + document.domain + ':' + location.port + "/game";
-var socket = io.connect(url);
+var socket = io.connect(url, {transports: ['websocket']});
 
 socket.on( 'connect', function() {
     console.log("connected to " + url);
