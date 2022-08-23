@@ -3,7 +3,7 @@ var url = window.location.protocol + '//' + document.domain + ':' + location.por
 var socket = io.connect(url);
 
 socket.on( 'connect', function() {
-    console.log("connected");
+    console.log("connected to " + url);
     socket.emit('connect_to_game')
 })
 
