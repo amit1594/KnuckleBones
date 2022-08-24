@@ -40,3 +40,12 @@ class Board:
 
     def get_sum(self):
         return self.left_col.get_sum() + self.mid_col.get_sum() + self.right_col.get_sum()
+
+    def send_current_state(self, board_index, socketio, sid):
+        cols = [self.left_col, self.mid_col, self.right_col]
+        count = 0
+        for col in cols:
+            count += 1
+            my_json = {"board_index": board_index, "column_index": count,
+                       "dices": col.get_dices(), "sum": col.get_sum()}
+            socketio.emit('update_column', my_json, room=sid, namespace="/game")

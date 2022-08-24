@@ -70,7 +70,7 @@ def game():
 def connect_to_game():
     global my_game
     if my_game:
-        my_game.send_update_turn()
+        my_game.send_current_boards(request.sid)
 
 
 
@@ -100,4 +100,4 @@ def got_number(json):
 
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    socketio.run(app, debug=True, host="0.0.0.0", port=80)

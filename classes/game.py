@@ -90,5 +90,12 @@ class Game:
         print(player, type(player))
         if player == 1:
             self.p1_sid = sid
+            self.send_current_boards(sid)
         elif player == 2:
+            self.send_current_boards(sid)
             self.p2_sid = sid
+
+    def send_current_boards(self, sid):
+        self.send_update_turn()
+        self.p1_board.send_current_state(1, self.socket, sid)
+        self.p2_board.send_current_state(2, self.socket, sid)
