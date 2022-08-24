@@ -53,8 +53,24 @@ function create_img(num) {
     return text
 }
 
+socket.on('reset_game',  function() {
+    for (var player = 1; player <= 2; player++) {
+        for (var column = 1; column <= 3; column++) {
+            var curr = "p" + player + "col" + column;
+            document.getElementById(curr).innerHTML = "<p class=\"column_score\">0</p>";
+        }
+        var title = document.getElementById("p" + player + "_board_title");
+        title.innerText = "Player " + player + ": 0";
+    }
+
+})
+
 
 function clicked_column(board, column) {
     console.log(column);
     socket.emit('chose_column', {board: board, column: column} );
+}
+
+function request_reset() {
+    socket.emit('request_reset');
 }

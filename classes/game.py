@@ -1,5 +1,4 @@
-from column import Column
-from board import Board
+from classes.board import Board
 import random
 
 
@@ -80,4 +79,6 @@ class Game:
                                          "p1sum": self.p1_board.get_sum(), "p2sum": self.p2_board.get_sum()}, namespace="/game")
         self.check_win()
 
+    def reset(self):
+        self.socket.emit('reset_game', namespace="/game")
 

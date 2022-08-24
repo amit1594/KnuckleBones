@@ -2,8 +2,7 @@ from flask import Flask, render_template, request, redirect, session, url_for
 import random
 from flask_socketio import SocketIO, join_room, leave_room, disconnect
 import logging
-from game import Game
-from column import Column
+from classes.game import Game
 # from engineio.payload import Payload
 
 # configs
@@ -11,29 +10,66 @@ from column import Column
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-logging.getLogger('werkzeug').disabled = True  # disabling logs
-app.logger.disabled = True
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_USE_SIGNER"] = True
+# logging.getLogger('werkzeug').disabled = True  # disabling logs
+# app.logger.disabled = True
 socketio = SocketIO(app, cors_allowed_origins='*')
 my_game = None
+next_guest_num = 1000
 
 
 def send_number(column, num):
     socketio.emit('new_command', {'column': column, 'number': num}, namespace='/game')
 
 
-@app.route('/')
+@app.before_request
+def before_request():
+    """ Sets up the session for a guest """
+    global next_guest_num
+    print(session)
+    if 'username' not in session:
+        session['username'] = "Guest" + str(next_guest_num)
+        next_guest_num += 1
+
+
+@app.route('/', methods=['POST', 'GET'])
 def index():
+    print("from index: " + session['username'])
     return render_template('index.html')
+
+
+@socketio.on('request_current_username', namespace='/index')
+def print_current_username():
+    print(session['username'])
+
+
+@socketio.on('change_username', namespace='/index')
+def change_username(json):
+    username = json.get('username', session['username'])
+    print(f"got username change request: {session['username']} to {username}")
+    session.pop('username', None)
+    session['username'] = username
+    socketio.emit('username_changed', {'username': username}, namespace='/index')
+    print(session['username'])
 
 
 @app.route('/game', methods=['POST', 'GET'])
 def game():
+    print("from game: " + session['username'])
     return render_template('game.html')
 
 
 @socketio.on('connect_to_game', namespace='/game')
 def connect_to_game():
     global my_game
+    my_game = Game(request.sid, request.sid, socketio)
+
+
+@socketio.on('request_reset', namespace='/game')
+def game_reset():
+    global my_game
+    my_game.reset()
     my_game = Game(request.sid, request.sid, socketio)
 
 
@@ -45,11 +81,6 @@ def got_number(json):
     print(f"got: {col}")
     if my_game:
         my_game.add_dice(board, col, request.sid)
-
-
-@socketio.on('disconnect')
-def lobby_disconnect():
-    pass
 
 
 if __name__ == '__main__':
