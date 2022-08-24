@@ -40,7 +40,7 @@ socket.on('update_column',  function(msg) {
     }
     if (newText !== col.innerHTML) {
         col.innerHTML = newText;
-        var audio = new Audio('static/audio/dice.flac');
+        var audio = new Audio('static/audio/dice.mp3');
         audio.play();
     }
 })
