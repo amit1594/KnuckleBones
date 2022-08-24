@@ -37,6 +37,8 @@ socket.on('update_column',  function(msg) {
         // alert(dice);
         col.innerHTML += create_img(msg.dices[dice]);
     }
+    var audio = new Audio('static/audio/dice.flac');
+    audio.play();
 })
 
 socket.on('new_command',  function(msg) {

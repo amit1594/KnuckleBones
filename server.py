@@ -78,7 +78,7 @@ def connect_to_game():
 def game_reset():
     global my_game
     my_game.reset()
-    my_game = Game(request.sid, request.sid, socketio)
+    my_game = Game(my_game.p1_sid, my_game.p2_sid, socketio)
 
 
 @socketio.on('become_a_player', namespace='/game')
