@@ -51,6 +51,11 @@ class Game:
                 winning_text = f"Player 2 won with {p2_sum}:{p1_sum}"
             self.socket.emit('winning_message', {'text': winning_text}, namespace="/game")
 
+    def send_update_turn(self):
+        self.socket.emit('update_turn', {"player": self.curr_player, "dice": self.curr_dice,
+                                         "p1sum": self.p1_board.get_sum(), "p2sum": self.p2_board.get_sum()},
+                         namespace="/game")
+
     def add_dice(self, board_index, col, sid):
         if sid != self.get_curr_player_sid() or board_index != self.curr_player:
             return
@@ -75,14 +80,14 @@ class Game:
         self.socket.emit('update_column', my_json, namespace="/game")
         # generate new dice
         self.curr_dice = generate_dice()
-        self.socket.emit('update_turn', {"player": self.curr_player, "dice": self.curr_dice,
-                                         "p1sum": self.p1_board.get_sum(), "p2sum": self.p2_board.get_sum()}, namespace="/game")
+        self.send_update_turn()
         self.check_win()
 
     def reset(self):
         self.socket.emit('reset_game', namespace="/game")
 
     def add_player(self, player, sid):
+        print(player, type(player))
         if player == 1:
             self.p1_sid = sid
         elif player == 2:

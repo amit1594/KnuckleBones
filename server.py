@@ -16,7 +16,7 @@ app.config["SESSION_USE_SIGNER"] = True
 # logging.getLogger('werkzeug').disabled = True  # disabling logs
 # app.logger.disabled = True
 socketio = SocketIO(app, cors_allowed_origins='*')
-my_game = None
+my_game = Game("", "", socketio)
 next_guest_num = 100
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 
@@ -65,10 +65,13 @@ def game():
     return render_template('game.html')
 
 
+
 @socketio.on('connect_to_game', namespace='/game')
 def connect_to_game():
     global my_game
-    my_game = Game(request.sid, request.sid, socketio)
+    if my_game:
+        my_game.send_update_turn()
+
 
 
 @socketio.on('request_reset', namespace='/game')
