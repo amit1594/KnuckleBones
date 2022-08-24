@@ -53,3 +53,9 @@ body {
     font-size: 16px;
     cursor: pointer;
 }
+
+.winning_message {
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+}

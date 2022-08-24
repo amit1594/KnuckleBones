@@ -24,7 +24,8 @@ socket.on('update_turn',  function(msg) {
 })
 
 socket.on('winning_message',  function(msg) {
-    alert(msg.text)
+    document.getElementById("winning_message").innerText = msg.text;
+    document.getElementById("winning_modal").classList.add("is-active");
 })
 
 socket.on('update_column',  function(msg) {
@@ -54,6 +55,7 @@ function create_img(num) {
 }
 
 socket.on('reset_game',  function() {
+    document.getElementById("winning_message").innerText = "";
     for (var player = 1; player <= 2; player++) {
         for (var column = 1; column <= 3; column++) {
             var curr = "p" + player + "col" + column;
@@ -74,3 +76,51 @@ function clicked_column(board, column) {
 function request_reset() {
     socket.emit('request_reset');
 }
+
+
+// MODALS
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Functions to open and close a modal
+  function openModal($el) {
+    $el.classList.add('is-active');
+  }
+
+  function closeModal($el) {
+    $el.classList.remove('is-active');
+  }
+
+  function closeAllModals() {
+    (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+      closeModal($modal);
+    });
+  }
+
+  // Add a click event on buttons to open a specific modal
+  (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+    const modal = $trigger.dataset.target;
+    const $target = document.getElementById(modal);
+
+    $trigger.addEventListener('click', () => {
+      openModal($target);
+    });
+  });
+
+  // Add a click event on various child elements to close the parent modal
+  (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+    const $target = $close.closest('.modal');
+
+    $close.addEventListener('click', () => {
+      closeModal($target);
+    });
+  });
+
+  // Add a keyboard event to close all modals
+  document.addEventListener('keydown', (event) => {
+    const e = event || window.event;
+
+    if (e.keyCode === 27) { // Escape key
+      closeAllModals();
+    }
+  });
+});
