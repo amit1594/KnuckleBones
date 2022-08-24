@@ -1,3 +1,4 @@
+from datetime import timedelta
 from flask import Flask, render_template, request, redirect, session, url_for
 import random
 from flask_socketio import SocketIO, join_room, leave_room, disconnect
@@ -8,7 +9,7 @@ from classes.game import Game
 # configs
 # Payload.max_decode_packets = 50
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
+app.config['SECRET_KEY'] = 'vlkjnflajhbfl1232#'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_USE_SIGNER"] = True
@@ -16,7 +17,8 @@ app.config["SESSION_USE_SIGNER"] = True
 # app.logger.disabled = True
 socketio = SocketIO(app, cors_allowed_origins='*')
 my_game = None
-next_guest_num = 1000
+next_guest_num = 100
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 
 
 def send_number(column, num):
@@ -28,8 +30,10 @@ def before_request():
     """ Sets up the session for a guest """
     global next_guest_num
     print(session)
+    print('username' not in session)
     if 'username' not in session:
         session['username'] = "Guest" + str(next_guest_num)
+        session.permanent = True
         next_guest_num += 1
 
 
@@ -52,6 +56,7 @@ def change_username(json):
     session['username'] = username
     socketio.emit('username_changed', {'username': username}, namespace='/index')
     print(session['username'])
+    print(session)
 
 
 @app.route('/game', methods=['POST', 'GET'])
@@ -68,9 +73,14 @@ def connect_to_game():
 
 @socketio.on('request_reset', namespace='/game')
 def game_reset():
+
+
+@socketio.on('become_a_player', namespace='/game')
+def become_a_player(json):
     global my_game
-    my_game.reset()
-    my_game = Game(request.sid, request.sid, socketio)
+    player = json.get('player', 1)
+    if my_game:
+        my_game.add_player(player, request.sid)
 
 
 @socketio.on('chose_column', namespace='/game')

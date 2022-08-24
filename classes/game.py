@@ -82,3 +82,8 @@ class Game:
     def reset(self):
         self.socket.emit('reset_game', namespace="/game")
 
+    def add_player(self, player, sid):
+        if player == 1:
+            self.p1_sid = sid
+        elif player == 2:
+            self.p2_sid = sid

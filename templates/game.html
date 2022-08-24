@@ -18,46 +18,65 @@
         </div>
         <button class="modal-close is-large" aria-label="close"></button>
     </div>
+    <br>
     <!-- Content -->
-    <div class="hero entire_board" style="background-color: #00BFFF;">
-        <h1 id="p1_board_title" class="board_title">Player 1: 0</h1>
-        <br>
-        <!-- Player1 Board -->
-        <div class="container">
-            <div class="columns board_columns_container">
-                <div class="column is-4 board_column" id="p1col1" onclick="clicked_column(1, 1)">
-                    <p id="p1col1score" class="column_score">0</p>
+    <div class="columns">
+        <div class="column is-one-fifth">
+            <div class="container">
+                <button class="become_player_button">Become player 1</button>
+            </div>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <div class="container">
+                <button class="become_player_button">Become player 2</button>
+            </div>
+        </div>
+        <div class="column is-three-fifths">
+            <!-- Player1 Board -->
+            <div class="hero entire_board" style="background-color: #00BFFF;">
+                <h1 id="p1_board_title" class="board_title">Player 1: 0</h1>
+                <br>
+                <div class="container">
+                    <div class="columns board_columns_container">
+                        <div class="column is-4 board_column" id="p1col1" onclick="clicked_column(1, 1)">
+                            <p id="p1col1score" class="column_score">0</p>
+                        </div>
+                        <div class="column is-4 board_column" id="p1col2" onclick="clicked_column(1, 2)">
+                            <p id="p1col2score" class="column_score">0</p>
+                        </div>
+                        <div class="column is-4 board_column" id="p1col3" onclick="clicked_column(1, 3)">
+                            <p id="p1col3score" class="column_score">0</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="column is-4 board_column" id="p1col2" onclick="clicked_column(1, 2)">
-                    <p id="p1col2score" class="column_score">0</p>
-                </div>
-                <div class="column is-4 board_column" id="p1col3" onclick="clicked_column(1, 3)">
-                    <p id="p1col3score" class="column_score">0</p>
+            </div>
+            <br><br><br><br><br>
+            <!-- Player2 Board -->
+            <div class="hero entire_board" style="background-color: #B22222;">
+                <h1 id="p2_board_title" class="board_title">Player 2: 0</h1>
+                <br>
+                <!-- Player2 Board -->
+                <div class="container">
+                    <div class="columns board_columns_container">
+                        <div class="column is-4 board_column" id="p2col1" onclick="clicked_column(2, 1)">
+                            <p id="p2col1score" class="column_score">0</p>
+                        </div>
+                        <div class="column is-4 board_column" id="p2col2" onclick="clicked_column(2, 2)">
+                            <p id="p2col2score" class="column_score">0</p>
+                        </div>
+                        <div class="column is-4 board_column" id="p2col3" onclick="clicked_column(2, 3)">
+                            <p id="p2col3score" class="column_score">0</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div>
-        <h1 class="turn_h" id="turn_h"></h1>
-        <img id="turn_dice" class="dice"/>
-        <br><br>
-        <button class="reset_button" type="button" onclick="request_reset()">Reset Game</button>
-    </div>
-    <div class="hero entire_board" style="background-color: #B22222;">
-        <h1 id="p2_board_title" class="board_title">Player 2: 0</h1>
-        <br>
-        <!-- Player2 Board -->
-        <div class="container">
-            <div class="columns board_columns_container">
-                <div class="column is-4 board_column" id="p2col1" onclick="clicked_column(2, 1)">
-                    <p id="p2col1score" class="column_score">0</p>
-                </div>
-                <div class="column is-4 board_column" id="p2col2" onclick="clicked_column(2, 2)">
-                    <p id="p2col2score" class="column_score">0</p>
-                </div>
-                <div class="column is-4 board_column" id="p2col3" onclick="clicked_column(2, 3)">
-                    <p id="p2col3score" class="column_score">0</p>
-                </div>
+        <div class="column is-one-fifth">
+            <!-- Mid section -->
+            <div>
+                <h1 class="turn_h" id="turn_h"></h1>
+                <img id="turn_dice" class="dice"/>
+                <br><br>
+                <button class="reset_button" type="button" onclick="request_reset()">Reset Game</button>
             </div>
         </div>
     </div>

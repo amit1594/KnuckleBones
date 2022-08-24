@@ -77,6 +77,9 @@ function request_reset() {
     socket.emit('request_reset');
 }
 
+function request_to_become_a_player(player) {
+    socket.emit('become_a_player', {player: player});
+}
 
 // MODALS
 
