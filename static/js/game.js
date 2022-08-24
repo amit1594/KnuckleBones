@@ -31,14 +31,18 @@ socket.on('winning_message',  function(msg) {
 socket.on('update_column',  function(msg) {
     console.log("updating column:");
     console.log(msg.dices);
+    var newText = "";
     var col = document.getElementById("p" + msg.board_index + "col" + msg.column_index);
-    col.innerHTML = "<p class=\"column_score\">" + msg.sum + "</p>";
+    newText = "<p class=\"column_score\">" + msg.sum + "</p>";
     for (var dice in msg.dices) {
         // alert(dice);
-        col.innerHTML += create_img(msg.dices[dice]);
+        newText += create_img(msg.dices[dice]);
     }
-    var audio = new Audio('static/audio/dice.flac');
-    audio.play();
+    if (newText !== col.innerHTML) {
+        col.innerHTML = newText;
+        var audio = new Audio('static/audio/dice.flac');
+        audio.play();
+    }
 })
 
 socket.on('new_command',  function(msg) {
