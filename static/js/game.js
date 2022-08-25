@@ -32,8 +32,9 @@ socket.on('update_column',  function(msg) {
     console.log("updating column:");
     console.log(msg.dices);
     var newText = "";
-    var col = document.getElementById("p" + msg.board_index + "col" + msg.column_index);
-    newText = "<p class=\"column_score\">" + msg.sum + "</p>";
+    var temp = "p" + msg.board_index + "col" + msg.column_index;
+    var col = document.getElementById(temp);
+    newText = "<p id=\"" + temp +"score\" class=\"column_score\">" + msg.sum + "</p>";
     for (var dice in msg.dices) {
         // alert(dice);
         newText += create_img(msg.dices[dice]);
