@@ -38,9 +38,11 @@ socket.on('update_column',  function(msg) {
         // alert(dice);
         newText += create_img(msg.dices[dice]);
     }
+    console.log("Current: " + col.innerHTML);
+    console.log("New: " + newText);
     if (newText !== col.innerHTML) {
         col.innerHTML = newText;
-        var audio = new Audio('static/audio/dice.mp3');
+        var audio = new Audio('static/audio/dice.flac');
         audio.play();
     }
 })
@@ -65,7 +67,7 @@ socket.on('reset_game',  function() {
     for (var player = 1; player <= 2; player++) {
         for (var column = 1; column <= 3; column++) {
             var curr = "p" + player + "col" + column;
-            document.getElementById(curr).innerHTML = "<p class=\"column_score\">0</p>";
+            document.getElementById(curr).innerHTML = "<p id=\"p" + player + "col" + column + "score\" class=\"column_score\">0</p>";
         }
         var title = document.getElementById("p" + player + "_board_title");
         title.innerText = "Player " + player + ": 0";
