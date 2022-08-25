@@ -40,10 +40,11 @@ socket.on('update_column',  function(msg) {
     }
     console.log("Current: " + col.innerHTML);
     console.log("New: " + newText);
-    if (newText !== col.innerHTML) {
+    if (newText.trim() !== col.innerHTML.trim()) {
         col.innerHTML = newText;
         var audio = new Audio('static/audio/dice.flac');
         audio.play();
+        console.log("Played sound")
     }
 })
 
@@ -58,7 +59,7 @@ socket.on('new_command',  function(msg) {
 function create_img(num) {
     var pic = "dice" + num + ".png";
     var text = "";
-    text += "<img class=\"dice\" src=\"static/images/" + pic + "\"/>";
+    text += "<img class=\"dice\" src=\"static/images/" + pic + "\">";
     return text
 }
 
