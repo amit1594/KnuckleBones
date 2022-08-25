@@ -163,3 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+function open_modal(id) {
+    document.getElementById(id).classList.add("is-active");
+}

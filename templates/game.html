@@ -17,6 +17,35 @@
         </div>
         <button class="modal-close is-large" aria-label="close"></button>
     </div>
+    <div id="rules_modal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <h1 class="rules_title">Welcome to Six-Six</h1>
+            <br><br>
+            <div class="content has-text-left rules_content">
+                <p>
+                    66 is a strategy board game with a bit of luck involved.<br><br>
+                    Each player, on their turn, rolls a dice at places it on one of his three columns.<br>
+                    Columns can hold up to 3 dice.<br>
+                    Each Column's value is calculated separately, according to the following rules:
+                </p>
+                <ul>
+                    <li>
+                        If a column has 2 of the same dice, it gains that dice times 4 as value.
+                    </li>
+                    <li>
+                        If a column has 3 of the same dice, it gains that dice times 9 as value.
+                    </li>
+                </ul>
+                <p>
+                    The game stops when a player fills their entire board, meaning he has 9 dice.<br>
+                    Then, the winner is the player with the most amount of points.<br>
+                    I.e. you can be the last player to place a dice and still lose.<br>
+                </p>
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
     <br>
     <!-- Content -->
     <div class="columns">
@@ -29,6 +58,8 @@
                 <button class="become_player_button" onclick="request_to_become_a_player(2)">Become player 2</button>
             </div>
         </div>
+        <div class="column is-one-forth"></div>
+        <div class="column is-one-forth"></div>
         <div class="column is-three-fifths">
             <!-- Player1 Board -->
             <div class="hero entire_board" style="background-color: #00BFFF;">
@@ -97,6 +128,13 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="column is-one-forth"></div>
+        <div class="column is-one-forth"></div>
+        <div class="column is-one-forth"></div>
+        <div class="column is-one-forth"></div>
+        <div class="column is-one-sixth">
+            <button class="rules_button" onclick="open_modal('rules_modal')">Rules</button>
         </div>
     </div>
 </div>
