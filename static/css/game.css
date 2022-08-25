@@ -72,3 +72,42 @@ body {
     color: white;
     font-weight: bold;
 }
+
+.containerChat {
+        width: 15vw;
+        height: 56vh;
+        position: relative;
+        margin: auto;
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: #C0C0C0;
+    }
+
+        .containerChat .messagesBox {
+            height: 62vh;
+            overflow-y: auto;
+            background-color: inherit;
+        }
+
+        .containerChat .messagesBox .messagesTitle {
+            font-size: 20px;
+        }
+
+        .containerChat .messagesBox .messages {
+            font-size: 15px;
+        }
+
+        .containerChat .chatInputBox {
+            height: 3vh;
+            background-color: inherit;
+        }
+
+            .containerChat .chatInputBox .guessInput {
+                width: 15vw;
+                height: 3vh;
+                background-color: white;
+                padding: 0;
+                border: 2px black;
+            }

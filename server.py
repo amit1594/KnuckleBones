@@ -65,13 +65,18 @@ def game():
     return render_template('game.html')
 
 
-
 @socketio.on('connect_to_game', namespace='/game')
 def connect_to_game():
     global my_game
     if my_game:
         my_game.send_current_boards(request.sid)
 
+
+@socketio.on('new_chat_message', namespace='/game')
+def new_chat_message(json):
+    global my_game
+    if my_game:
+        my_game.process_chat_message(request.sid, json.get('message', ""))
 
 
 @socketio.on('request_reset', namespace='/game')

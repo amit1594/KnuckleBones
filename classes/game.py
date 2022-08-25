@@ -99,3 +99,12 @@ class Game:
         self.send_update_turn()
         self.p1_board.send_current_state(1, self.socket, sid)
         self.p2_board.send_current_state(2, self.socket, sid)
+
+    def process_chat_message(self, sid, msg):
+        if sid == self.p1_sid:
+            sender = "Player 1: "
+        elif sid == self.p2_sid:
+            sender = "Player 2: "
+        else:
+            sender = "Spectator: "
+        self.socket.emit('new_chat_message', {"msg": sender + msg}, namespace="/game")

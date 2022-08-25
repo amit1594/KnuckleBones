@@ -87,6 +87,32 @@ function request_to_become_a_player(player) {
     socket.emit('become_a_player', {player: player});
 }
 
+// CHAT
+
+document.getElementById("chatForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    var iChat = document.getElementById("inputChat");
+    if (iChat.value.length > 0) {
+        socket.emit( 'new_chat_message', {message: iChat.value} );
+        iChat.value = "";
+    }
+});
+
+function chat_handler(message) {
+    // updates the chat according to the given data
+    var mDiv = document.getElementById("messages");
+    var myP = document.createElement("p");
+    myP.innerText = message;
+    myP.style.color = 'black';
+    mDiv.appendChild(myP);
+    var scrollIntoViewOptions = { behavior: "smooth", block: "center" };
+    mDiv.scrollIntoView(scrollIntoViewOptions);
+}
+
+socket.on('new_chat_message',  function(msg) {
+    chat_handler(msg.msg)
+})
+
 // MODALS
 
 document.addEventListener('DOMContentLoaded', () => {

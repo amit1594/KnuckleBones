@@ -3,7 +3,6 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
-    <script src="{{url_for('static', filename='js/game.js')}}"></script>
     <meta charset="UTF-8"/>
     <title>Game</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
@@ -20,7 +19,7 @@
     </div>
     <br>
     <!-- Content -->
-    <div class="columns">
+    <div class="columns is-variable bd-klmn-columns is-8">
         <div class="column is-one-fifth">
             <div class="container">
                 <button class="become_player_button" onclick="request_to_become_a_player(1)">Become player 1</button>
@@ -70,16 +69,37 @@
                 </div>
             </div>
         </div>
-        <div class="column is-one-fifth">
+        <div class="column is-one-forth">
             <!-- Mid section -->
             <div>
                 <h1 class="turn_h" id="turn_h"></h1>
                 <img id="turn_dice" class="dice"/>
                 <br><br>
                 <button class="reset_button" type="button" onclick="request_reset()">Reset Game</button>
+                <br><br><br><br>
+                <div class="containerChat">
+                    <div class="messagesBox">
+                        <div class="messagesTitle">
+                            Chat
+                        </div>
+                        <div class="messages has-text-left" id="messages">
+                        </div>
+                    </div>
+                    <div class="chatInputBox" style="width: 100%">
+                        <div class="container">
+                            <form id="chatForm">
+                                <div class="control">
+                                    <input id="inputChat" autocomplete="off" type="text" style="width: 100%;"
+                                           placeholder="Type your guess here..." maxlength="100">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script src="{{url_for('static', filename='js/game.js')}}"></script>
 </body>
 </html>
