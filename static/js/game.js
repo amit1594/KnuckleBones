@@ -44,7 +44,7 @@ socket.on('update_column',  function(msg) {
         col.innerHTML = newText;
         var audio = new Audio('static/audio/dice.flac');
         audio.play();
-        console.log("Played sound")
+        console.log("Played sound");
     }
 })
 
