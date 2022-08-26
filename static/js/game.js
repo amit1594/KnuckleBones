@@ -28,25 +28,22 @@ socket.on('winning_message',  function(msg) {
     document.getElementById("winning_modal").classList.add("is-active");
 })
 
-socket.on('update_column',  function(msg) {
-    console.log("updating column:");
-    console.log(msg.dices);
+function update_column(col, player, sum, dices) {
     var newText = "";
-    var temp = "p" + msg.board_index + "col" + msg.column_index;
+    var temp = "p" + player + "col" + col;
     var col = document.getElementById(temp);
-    newText = "<p id=\"" + temp +"score\" class=\"column_score\">" + msg.sum + "</p>";
-    for (var dice in msg.dices) {
-        // alert(dice);
-        newText += create_img(msg.dices[dice]);
+    newText = "<p id=\"" + temp +"score\" class=\"column_score\">" + sum + "</p>";
+    for (var dice in dices) {
+        newText += create_img(dices[dice]);
     }
-    console.log("Current: " + col.innerHTML);
-    console.log("New: " + newText);
-    if (newText.trim() !== col.innerHTML.trim()) {
-        col.innerHTML = newText;
-        var audio = new Audio('static/audio/dice.flac');
-        audio.play();
-        console.log("Played sound");
-    }
+    col.innerHTML = newText;
+}
+
+socket.on('update_column',  function(msg) {
+    update_column(msg.column_index, msg.index1, msg.sum1, msg.column1);
+    update_column(msg.column_index, msg.index2, msg.sum2, msg.column2);
+    var audio = new Audio('static/audio/dice.flac');
+    audio.play();
 })
 
 socket.on('new_command',  function(msg) {

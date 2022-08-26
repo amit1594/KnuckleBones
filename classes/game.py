@@ -19,6 +19,11 @@ class Game:
                                          "p1sum": self.p1_board.get_sum(), "p2sum": self.p2_board.get_sum()},
                          namespace="/game")
 
+    def get_other_player(self):
+        if self.curr_player == 1:
+            return 2
+        return 1
+
     def get_curr_player_sid(self):
         if self.curr_player == 1:
             return self.p1_sid
@@ -62,10 +67,11 @@ class Game:
         curr_board = self.get_curr_board()
         if not curr_board.add_dice(col, self.curr_dice):
             return
+        my_json = {"column_index": col}
         updated_col = curr_board.get_col(col)
-        my_json = {"board_index": self.curr_player, "column_index": col,
-                   "dices": updated_col.get_dices(), "sum": updated_col.get_sum()}
-        self.socket.emit('update_column', my_json, namespace="/game")
+        my_json["index1"] = self.curr_player
+        my_json["column1"] = updated_col.get_dices()
+        my_json["sum1"] = updated_col.get_sum()
         # swap turn
         if self.curr_player == 1:
             self.curr_player = 2
@@ -75,8 +81,9 @@ class Game:
         # remove matching dice from enemy's col
         curr_board.remove_dice(col, self.curr_dice)
         updated_col = curr_board.get_col(col)
-        my_json = {"board_index": self.curr_player, "column_index": col,
-                   "dices": updated_col.get_dices(), "sum": updated_col.get_sum()}
+        my_json["index2"] = self.curr_player
+        my_json["column2"] = updated_col.get_dices()
+        my_json["sum2"] = updated_col.get_sum()
         self.socket.emit('update_column', my_json, namespace="/game")
         # generate new dice
         self.curr_dice = generate_dice()
