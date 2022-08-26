@@ -42,31 +42,43 @@ body {
 }
 
 .reset_button {
-    border-radius: 2px;
-    background-color: #e7e7e7;
-    color: black;
-    border: none;
-    padding: 15px 32px;
-    text-align: center;
-    margin: 16px 0 !important;
-    text-decoration: none;
-    font-size: 16px;
+    display: inline-block;
+    outline: none;
     cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 500px;
+    transition-property: background-color,border-color,color,box-shadow,filter;
+    transition-duration: .3s;
+    border: 1px solid transparent;
+    letter-spacing: 2px;
+    min-width: 160px;
+    text-transform: uppercase;
+    white-space: normal;
+    font-weight: 700;
+    text-align: center;
+    padding: 16px 14px 18px;
+    color: #fff;
+    background-color: #15883e;
+    height: 48px;
+    :hover{
+        background-color: #1db954;
+    }
 }
 
 .become_player_button {
-    width: 100px;
-    height: 50px;
-    border-radius: 2px;
-    background-color: #F5F5DC;
-    color: black;
+    display: inline-block;
+    outline: 0;
     border: none;
-    padding: 0px;
-    text-align: center;
-    margin: auto;
-    text-decoration: none;
-    font-size: 16px;
     cursor: pointer;
+    padding: 0 24px;
+    border-radius: 50px;
+    min-width: 200px;
+    height: 50px;
+    font-size: 18px;
+    background-color: #fd0;
+    font-weight: 500;
+    color: #222;
 }
 
 .rules_background {
