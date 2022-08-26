@@ -100,6 +100,8 @@ function chat_handler(message, type) {
     if (type === "regular") {
         myP.style.color = 'black';
     } else if (type === "win") {
+        myP.style.color = 'blue';
+    } else if (type === "player_join") {
         myP.style.color = 'yellow';
     }
     mDiv.appendChild(myP);

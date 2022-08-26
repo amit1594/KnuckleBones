@@ -55,7 +55,7 @@ class Game:
             else:
                 winning_text = f"Player 2 won with {p2_sum}:{p1_sum}"
             self.socket.emit('winning_message', {'text': winning_text}, namespace="/game")
-            self.socket.emit('new_chat_message', {"type": 'win', "msg": winning_text}, namespace="/game")
+            self.send_chat_message('win', winning_text)
 
     def send_update_turn(self):
         self.socket.emit('update_turn', {"player": self.curr_player, "dice": self.curr_dice,
@@ -91,17 +91,22 @@ class Game:
         self.send_update_turn()
         self.check_win()
 
+    def send_chat_message(self, msg_type, msg):
+        self.socket.emit('new_chat_message', {"type": msg_type, "msg":  msg}, namespace="/game")
+
     def reset(self):
         self.socket.emit('reset_game', namespace="/game")
 
     def add_player(self, player, sid):
         print(player, type(player))
-        if player == 1:
+        if player == 1 and sid != self.p1_sid:
             self.p1_sid = sid
             self.send_current_boards(sid)
-        elif player == 2:
+            self.send_chat_message('player_join', "player1 joined")
+        elif player == 2 and sid != self.p2_sid:
             self.send_current_boards(sid)
             self.p2_sid = sid
+            self.send_chat_message('player_join', "player2 joined")
 
     def send_current_boards(self, sid):
         self.send_update_turn()
@@ -119,4 +124,4 @@ class Game:
             sender = "Player 2: "
         else:
             sender = "Spectator: "
-        self.socket.emit('new_chat_message', {"type": 'regular', "msg": sender + msg}, namespace="/game")
+        self.send_chat_message('regular', sender + msg)
