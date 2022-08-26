@@ -69,6 +69,10 @@ body {
     cursor: pointer;
 }
 
+.rules_background {
+    background-color: rgba(10,10,10,.90);
+}
+
 .rules_button {
     border-radius: 2px;
     background-color: #8A2BE2;

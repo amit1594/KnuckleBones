@@ -41,6 +41,9 @@ class Board:
     def get_sum(self):
         return self.left_col.get_sum() + self.mid_col.get_sum() + self.right_col.get_sum()
 
+    def get_columns(self):
+        return [self.left_col, self.mid_col, self.right_col]
+
     def send_current_state(self, board_index, socketio, sid):
         cols = [self.left_col, self.mid_col, self.right_col]
         count = 0

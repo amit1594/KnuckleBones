@@ -42,17 +42,11 @@ function update_column(col, player, sum, dices) {
 socket.on('update_column',  function(msg) {
     update_column(msg.column_index, msg.index1, msg.sum1, msg.column1);
     update_column(msg.column_index, msg.index2, msg.sum2, msg.column2);
-    var audio = new Audio('static/audio/dice.flac');
-    audio.play();
+    if (msg.play) {
+        var audio = new Audio('static/audio/dice.flac');
+        audio.play();
+    }
 })
-
-socket.on('new_command',  function(msg) {
-    var num =  msg.number;
-    console.log("new number: " + num);
-    var my_div = document.getElementById("p1col" + msg.column);
-    my_div.innerHTML += create_img(num);
-})
-
 
 function create_img(num) {
     var pic = "dice" + num + ".png";
@@ -76,7 +70,6 @@ socket.on('reset_game',  function() {
 
 
 function clicked_column(board, column) {
-    console.log(column);
     socket.emit('chose_column', {board: board, column: column} );
 }
 
@@ -99,19 +92,23 @@ document.getElementById("chatForm").addEventListener("submit", function(event) {
     }
 });
 
-function chat_handler(message) {
+function chat_handler(message, type) {
     // updates the chat according to the given data
     var mDiv = document.getElementById("messages");
     var myP = document.createElement("p");
     myP.innerText = message;
-    myP.style.color = 'black';
+    if (type === "regular") {
+        myP.style.color = 'black';
+    } else if (type === "win") {
+        myP.style.color = 'yellow';
+    }
     mDiv.appendChild(myP);
     var scrollIntoViewOptions = { behavior: "smooth", block: "center" };
     mDiv.scrollIntoView(scrollIntoViewOptions);
 }
 
 socket.on('new_chat_message',  function(msg) {
-    chat_handler(msg.msg)
+    chat_handler(msg.msg, msg.type)
 })
 
 // MODALS

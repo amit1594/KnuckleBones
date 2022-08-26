@@ -18,29 +18,38 @@
         <button class="modal-close is-large" aria-label="close"></button>
     </div>
     <div id="rules_modal" class="modal">
-        <div class="modal-background"></div>
+        <div class="modal-background rules_background"></div>
         <div class="modal-content">
             <h1 class="rules_title">Welcome to Six-Six</h1>
             <br><br>
             <div class="content has-text-left rules_content">
                 <p>
                     66 is a strategy board game with a bit of luck involved.<br><br>
-                    Each player, on their turn, rolls a dice at places it on one of his three columns.<br>
+                    Each player, on their turn, rolls a dice and places it on one of his three columns.<br>
                     Columns can hold up to 3 dice.<br>
                     Each Column's value is calculated separately, according to the following rules:
                 </p>
                 <ul>
                     <li>
-                        If a column has 2 of the same dice, it gains that dice times 4 as value.
+                        For every unique dice, the column adds that number to the sum.
                     </li>
                     <li>
-                        If a column has 3 of the same dice, it gains that dice times 9 as value.
+                        2 of the same dice adds 4 times the value of the dice instead.
+                    </li>
+                    <li>
+                        3 of the same dice adds 9 times the value of the dice instead.
                     </li>
                 </ul>
                 <p>
+                    Though stacking same valued dice is rewarded, it is also risky.<br>
+                    That is, because placing a dice removes all of the opponent's dice that have the same value from the opposite column. <br>
+                    Therefore, you can easily remove an opponent's stack if you get the right dice. <br>
+                    <br>
                     The game stops when a player fills their entire board, meaning he has 9 dice.<br>
                     Then, the winner is the player with the most amount of points.<br>
-                    I.e. you can be the last player to place a dice and still lose.<br>
+                    i.e. you can be the last player to place a dice and still lose.<br>
+                    <br>
+                    Hope you enjoy the game, good luck!
                 </p>
             </div>
         </div>
@@ -109,7 +118,7 @@
                     <br><br>
                     <button class="reset_button" type="button" onclick="request_reset()">Reset Game</button>
                 </div>
-                <br><br><br><br>
+                <br><br><br>
                 <div class="containerChat">
                     <div class="messagesBox">
                         <div class="messagesTitle">
@@ -123,7 +132,7 @@
                             <form id="chatForm">
                                 <div class="control">
                                     <input id="inputChat" autocomplete="off" type="text" style="width: 100%;"
-                                           placeholder="Type your guess here..." maxlength="100">
+                                           placeholder="Enter message..." maxlength="100">
                                 </div>
                             </form>
                         </div>

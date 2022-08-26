@@ -55,6 +55,7 @@ class Game:
             else:
                 winning_text = f"Player 2 won with {p2_sum}:{p1_sum}"
             self.socket.emit('winning_message', {'text': winning_text}, namespace="/game")
+            self.socket.emit('new_chat_message', {"type": 'win', "msg": winning_text}, namespace="/game")
 
     def send_update_turn(self):
         self.socket.emit('update_turn', {"player": self.curr_player, "dice": self.curr_dice,
@@ -67,7 +68,7 @@ class Game:
         curr_board = self.get_curr_board()
         if not curr_board.add_dice(col, self.curr_dice):
             return
-        my_json = {"column_index": col}
+        my_json = {"column_index": col, "play": True}
         updated_col = curr_board.get_col(col)
         my_json["index1"] = self.curr_player
         my_json["column1"] = updated_col.get_dices()
@@ -104,8 +105,12 @@ class Game:
 
     def send_current_boards(self, sid):
         self.send_update_turn()
-        self.p1_board.send_current_state(1, self.socket, sid)
-        self.p2_board.send_current_state(2, self.socket, sid)
+        p1cols = self.p1_board.get_columns()
+        p2cols = self.p2_board.get_columns()
+        for i in range(3):
+            my_json = {"column_index": i + 1, "index1": 1, "index2": 2, "column1": p1cols[i].get_dices(), "play": False,
+                       "sum1": p1cols[i].get_sum(), "column2": p2cols[i].get_dices(), "sum2": p2cols[i].get_sum()}
+            self.socket.emit('update_column', my_json, room=sid, namespace="/game")
 
     def process_chat_message(self, sid, msg):
         if sid == self.p1_sid:
@@ -114,4 +119,4 @@ class Game:
             sender = "Player 2: "
         else:
             sender = "Spectator: "
-        self.socket.emit('new_chat_message', {"msg": sender + msg}, namespace="/game")
+        self.socket.emit('new_chat_message', {"type": 'regular', "msg": sender + msg}, namespace="/game")

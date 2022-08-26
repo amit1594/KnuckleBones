@@ -21,10 +21,6 @@ next_guest_num = 100
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 
 
-def send_number(column, num):
-    socketio.emit('new_command', {'column': column, 'number': num}, namespace='/game')
-
-
 @app.before_request
 def before_request():
     """ Sets up the session for a guest """
